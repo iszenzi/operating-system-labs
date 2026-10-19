@@ -8,7 +8,8 @@
 
 enum sum_status sum_line(const char *line, size_t length, float *result)
 {
-    if (memchr(line, '\0', length) != NULL) {
+    if (memchr(line, '\0', length) != NULL)
+    {
         return SUM_INVALID_NUMBER;
     }
 
@@ -16,29 +17,36 @@ enum sum_status sum_line(const char *line, size_t length, float *result)
     float total = 0.0f;
     int has_numbers = 0;
 
-    for (;;) {
-        while (isspace((unsigned char)*cursor)) {
+    for (;;)
+    {
+        while (isspace((unsigned char)*cursor))
+        {
             ++cursor;
         }
-        if (*cursor == '\0') {
+        if (*cursor == '\0')
+        {
             break;
         }
 
         char *end = NULL;
         errno = 0;
         float value = strtof(cursor, &end);
-        if (end == cursor || (*end != '\0' && !isspace((unsigned char)*end))) {
+        if (end == cursor || (*end != '\0' && !isspace((unsigned char)*end)))
+        {
             return SUM_INVALID_NUMBER;
         }
-        if (errno == ERANGE) {
+        if (errno == ERANGE)
+        {
             return SUM_NUMBER_RANGE;
         }
-        if (!isfinite(value)) {
+        if (!isfinite(value))
+        {
             return SUM_INVALID_NUMBER;
         }
 
         total += value;
-        if (!isfinite(total)) {
+        if (!isfinite(total))
+        {
             return SUM_OVERFLOW;
         }
         has_numbers = 1;
@@ -51,7 +59,8 @@ enum sum_status sum_line(const char *line, size_t length, float *result)
 
 const char *sum_error(enum sum_status status)
 {
-    switch (status) {
+    switch (status)
+    {
     case SUM_INVALID_NUMBER:
         return "ожидаются конечные числа float, разделённые пробелами";
     case SUM_NUMBER_RANGE:

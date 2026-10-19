@@ -3,7 +3,8 @@
 
 #include <stddef.h>
 
-enum sum_status {
+enum sum_status
+{
     SUM_OK,
     SUM_EMPTY,
     SUM_INVALID_NUMBER,
